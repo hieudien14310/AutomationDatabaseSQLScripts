@@ -32,8 +32,9 @@ jobs:
 
       - name: Run SQL files on PostgreSQL
         run: |
-          IFS=$'\n'
-          for file in $(echo "${{ steps.changed_sql_files.outputs.added_sql_files }}" | tr -s ' ' '\n'); do
+          for file in $(cat added.txt); do
             echo "Running $file on PostgreSQL..."
-            psql "${{ secrets.DATABASE_URL }}" -a -f $file
+            export DB_URL="${{ secrets.DATABASE_URL }}"
+            DB_URL_WITH_NEW_DB=$(echo $DB_URL | sed 's/\/[^/]*$/\/test_auto_database/')
+            psql "$DB_URL_WITH_NEW_DB" -a -f "$file"
           done
