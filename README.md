@@ -27,7 +27,7 @@ Vào repository >> setting >> Secrets and variables >> Tạo 1 key tên là **DA
 Lưu ý: DATABASE_URL không nên chứa tên database ở cuối, chỉ cần kết thúc bằng dấu `/`.
 
 ```
-postgresql://postgres:123456789!@#ZXC@postgres.urdraw.click:5432/
+postgresql://postgres:123456789!@#ZXC@postgres.abcxyz.click:5432/
 ```
 
 ## Cấu trúc thư mục
