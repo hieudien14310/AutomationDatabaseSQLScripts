@@ -38,7 +38,7 @@ jobs:
             if [[ "$DB_URL" =~ /[^/]+$ ]]; then
               DB_URL_WITH_NEW_DB=$(echo $DB_URL | sed 's/\/[^/]*$/\/test_auto_database/')
             else
-              DB_URL_WITH_NEW_DB="${DB_URL}/test_auto_database"
+              DB_URL_WITH_NEW_DB="${DB_URL}test_auto_database"
             fi
             psql "$DB_URL_WITH_NEW_DB" -a -f "$file"
           done
