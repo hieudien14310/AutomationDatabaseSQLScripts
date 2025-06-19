@@ -43,7 +43,7 @@ jobs:
             if [[ "$DB_URL" =~ /[^/]+$ ]]; then
               DB_URL_WITH_DB=$(echo $DB_URL | sed "s/\/[^/]*$/\/$DB_NAME/")
             else
-              DB_URL_WITH_DB="${DB_URL}/$DB_NAME"
+              DB_URL_WITH_DB="${DB_URL}$DB_NAME"
             fi
             echo "DB_URL_WITH_DB=$DB_URL_WITH_DB"
             psql "$DB_URL_WITH_DB" -a -f "$file"
