@@ -24,7 +24,7 @@ psql -h localhost -p 5432 -U postgres -d mydb
 
 Vào repository >> setting >> Secrets and variables >> Tạo 1 key tên là **DATABASE_URL**
 
-Lưu ý: Connection string của postgresql, bạn phải để dấu `/` cuối cùng và không cần phải có tên database đi kèm
+Lưu ý: DATABASE_URL không nên chứa tên database ở cuối, chỉ cần kết thúc bằng dấu `/`.
 
 ```
 postgresql://postgres:123456789!@#ZXC@postgres.urdraw.click:5432/
