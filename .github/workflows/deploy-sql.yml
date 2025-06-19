@@ -36,5 +36,6 @@ jobs:
             echo "Running $file on PostgreSQL..."
             export DB_URL="${{ secrets.DATABASE_URL }}"
             DB_URL_WITH_NEW_DB=$(echo $DB_URL | sed 's/\/[^/]*$/\/test_auto_database/')
+            echo "$DB_URL_WITH_NEW_DB"
             psql "$DB_URL_WITH_NEW_DB" -a -f "$file"
           done
