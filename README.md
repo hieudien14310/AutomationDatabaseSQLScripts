@@ -2,6 +2,12 @@ Dùng để quản lý các câu lệnh SQL của **PostgreSQL** theo thứ tự
 
 **Chỉ hỗ trợ cho 1 connection cho 1 repository, nếu muốn dùng cho connection khác thì nên fork ra rồi thay đổi SECRET DATABASE_URL**
 
+## Quan trọng cần lưu ý
+
+Hiện tại không có hỗ trợ revert lại sau khi đã chạy lệnh SQL. Bạn phải tạo file sql mới rồi deploy lại.
+
+Nếu bạn update câu lệnh SQL sai thì cứ tạo tiếp sql mới để sửa lại cái sai đó.
+
 ## Cú pháp để kết nối tới postgresql server của bạn
 
 ```
