@@ -19,8 +19,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client
 
-      - name: Test echo serect key
+      - name: Get changed SQL files
+        id: changed_sql_files
         run: |
-          echo "${{ secrets.DATABASE_URL }}"
+          git diff --name-status ${{ github.event.before }} ${{ github.sha }} | grep '\.sql$' > changes.txt || true
 
-      # - name: Get changed SQL files
+          grep '^A' changes.txt | cut -f2- > added.txt || true
+
+          echo "added_sql_files<<EOF" >> $GITHUB_OUTPUT
+          cat added.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run SQL files on PostgreSQL
+        run: |
+          IFS=$'\n'
+          for file in $(echo "${{ steps.changed_sql_files.outputs.added_sql_files }}" | tr -s ' ' '\n'); do
+            echo "Running $file on PostgreSQL..."
+            psql "${{ secrets.DATABASE_URL }}" -a -f $file
+          done
