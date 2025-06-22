@@ -47,7 +47,9 @@ postgresql://postgres:123456789!@#ZXC@postgres.abcxyz.click:5432/
 ## Cách setup để hoạt động được
 
 - Bạn phải tạo database trước rồi mới tạo folder cùng tên (trong thư mục scripts)
+- Fork repository này, rồi xóa hết thư mục hiện có trong `scripts`. Rồi tạo thư mục mới
 - Tạo nhánh tên là deploy-sql. Bạn có thể sự đổi lại tên trong phần deploy-sql.yml
+- Nhớ thay đổi lại value trong phần SECRETS.DATABASE_URL
 
 ## Các quy tắc khi marge vào nhánh main
 
