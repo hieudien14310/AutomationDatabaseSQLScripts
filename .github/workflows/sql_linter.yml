@@ -32,11 +32,11 @@ jobs:
 
       - name: Install SQLFluff
         run: |
-          pip install sqlfluff[postgres]==2.3.5
+          pip install sqlfluff
 
       - name: Lint changed SQL files
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           echo "Linting the following files:"
           echo "${{ steps.changed-files.outputs.all_changed_files }}"
-          sqlfluff lint --dialect=postgres --ignore-templated-warnings ${{ steps.changed-files.outputs.all_changed_files }}
+          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }}
