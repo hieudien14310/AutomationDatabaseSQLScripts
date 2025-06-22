@@ -48,3 +48,12 @@ postgresql://postgres:123456789!@#ZXC@postgres.abcxyz.click:5432/
 
 - Bạn phải tạo database trước rồi mới tạo folder cùng tên (trong thư mục scripts)
 - Tạo nhánh tên là deploy-sql. Bạn có thể sự đổi lại tên trong phần deploy-sql.yml
+
+## Các quy tắc khi marge vào nhánh main
+
+Có 1 bộ quy tắc để check khi bạn merge 1 PR vào nhánh main. Và bạn có thể xem trong phần `.github/workflows/`
+```
+- sql_linter.yml: Dùng để kiểm tra syntax của PostgreSQL, cấu hình thì để kiểm tra thì trong file .sqlfluff, có thể tùy chỉnh theo nhu cầu
+- no_update_old_file.yml: Dùng để kiểm tra xem các file sql cũ có bị chỉnh sửa lại không
+- no_delete_old_file.yml: Dùng để kiểm tra xem có file sql cũ nào bị xóa đi không
+```
