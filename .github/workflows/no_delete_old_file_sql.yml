@@ -1,0 +1,37 @@
+name: Check No SQL File Deleted
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**/*.sql"
+
+jobs:
+  check-sql-deleted:
+    name: Ensure No SQL File Is Deleted
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get list of deleted SQL files
+        id: changed-sql
+        uses: tj-actions/changed-files@v44
+        with:
+          files: "**/*.sql"
+
+      - name: Fail if any SQL files are deleted
+        run: |
+          echo "Deleted SQL files:"
+          echo "${{ steps.changed-sql.outputs.deleted_files }}"
+
+          if [ "${{ steps.changed-sql.outputs.deleted_files_count }}" != "0" ]; then
+            echo "❌ Error: Some SQL files were deleted!"
+            exit 1
+          fi
+
+          echo "✅ No SQL files were deleted."
