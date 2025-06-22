@@ -1,0 +1,50 @@
+name: Check No SQL File Modified
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.sql'
+
+jobs:
+  check-sql-files:
+    name: Ensure Only New SQL Files Are Added
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get list of modified SQL files
+        id: changed-sql
+        uses: tj-actions/changed-files@v44
+        with:
+          files: '**/*.sql'
+
+      - name: Fail if any SQL file is modified or deleted
+        run: |
+          echo "Checking SQL file change types..."
+
+          echo "Added files:"
+          echo "${{ steps.changed-sql.outputs.added_files }}"
+
+          echo "Modified files:"
+          echo "${{ steps.changed-sql.outputs.modified_files }}"
+
+          echo "Deleted files:"
+          echo "${{ steps.changed-sql.outputs.deleted_files }}"
+
+          if [ "${{ steps.changed-sql.outputs.modified_files_count }}" != "0" ]; then
+            echo "❌ Error: Some SQL files were modified!"
+            exit 1
+          fi
+
+          if [ "${{ steps.changed-sql.outputs.deleted_files_count }}" != "0" ]; then
+            echo "❌ Error: Some SQL files were deleted!"
+            exit 1
+          fi
+
+          echo "✅ Only new SQL files were added."
