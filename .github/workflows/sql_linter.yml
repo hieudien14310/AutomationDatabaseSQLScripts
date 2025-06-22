@@ -1,0 +1,42 @@
+name: Check PostgreSQL Syntax
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**.sql"
+
+jobs:
+  sql-lint:
+    name: Lint SQL Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed SQL files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **.sql
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install SQLFluff
+        run: |
+          pip install sqlfluff
+
+      - name: Lint changed SQL files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Linting the following files:"
+          echo "${{ steps.changed-files.outputs.all_changed_files }}"
+          sqlfluff lint ${{ steps.changed-files.outputs.all_changed_files }}
