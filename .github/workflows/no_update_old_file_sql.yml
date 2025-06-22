@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - '**.sql'
 
 jobs:
   check-sql-files:
@@ -22,7 +20,7 @@ jobs:
         id: changed-sql
         uses: tj-actions/changed-files@v44
         with:
-          files: '**/*.sql'
+          files: "**/*.sql"
 
       - name: Fail if any SQL file is modified or deleted
         run: |
