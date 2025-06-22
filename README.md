@@ -1,5 +1,7 @@
 Dùng để quản lý các câu lệnh SQL của **PostgreSQL** theo thứ tự và tự động chạy câu lệnh đó mỗi khi được merge vào nhánh **deploy-sql**.
 
+> Khi muốn thêm 1 file sql mới thì hãy checkout từ nhánh main, rồi tạo PR vào main, sau khi đã marge vào main thì hãy tạo tiếp 1 PR từ main vào nhánh deploy-sql để run các câu lệnh sql mới.
+
 **Chỉ hỗ trợ cho 1 connection cho 1 repository, nếu muốn dùng cho connection khác thì nên fork ra rồi thay đổi SECRET DATABASE_URL**
 
 ## Quan trọng cần lưu ý
@@ -54,6 +56,7 @@ postgresql://postgres:123456789!@#ZXC@postgres.abcxyz.click:5432/
 ## Các quy tắc khi marge vào nhánh main
 
 Có 1 bộ quy tắc để check khi bạn merge 1 PR vào nhánh main. Và bạn có thể xem trong phần `.github/workflows/`
+
 ```
 - sql_linter.yml: Dùng để kiểm tra syntax của PostgreSQL, cấu hình thì để kiểm tra thì trong file .sqlfluff, có thể tùy chỉnh theo nhu cầu
 - no_update_old_file_sql.yml: Dùng để kiểm tra xem các file sql cũ có bị chỉnh sửa lại không
